@@ -160,18 +160,29 @@ with right:
 def analyze_report(report):
     rows = []
 
-    patterns = {
-        "Hemoglobin": r"(?:hemoglobin|haemoglobin|hgb|hb)\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "WBC": r"(?:white blood cells?|wbc|total leukocyte count|tlc)\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Platelets": r"(?:platelets?|platelet count)\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Fasting glucose": r"(?:fasting blood sugar|fasting glucose|blood glucose|glucose|fbs)\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Creatinine": r"(?:serum creatinine|creatinine)\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Total cholesterol": r"(?:total cholesterol|cholesterol total)\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "HDL": r"\bhdl(?: cholesterol)?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "LDL": r"\bldl(?: cholesterol)?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Triglycerides": r"(?:triglycerides?|tg)\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "TSH": r"(?:tsh|thyroid stimulating hormone)\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    }
+  
+patterns = {
+    "Hemoglobin": r"\b(?:hemoglobin|haemoglobin|hgb|hb)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "WBC": r"(?:white blood cell(?:s)?(?:\s+count)?|wbc|total leukocyte count|tlc)(?:\s*\(.*?\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "Platelets": r"\b(?:platelets?|platelet count)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "Fasting glucose": r"\b(?:fasting blood sugar|fasting glucose|blood glucose|glucose|fbs)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "Creatinine": r"\b(?:serum creatinine|creatinine)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "Total cholesterol": r"\b(?:total cholesterol|cholesterol total)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "HDL": r"\bhdl(?:\s+cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "LDL": r"\bldl(?:\s+cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "Triglycerides": r"\b(?:triglycerides?|tg)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+
+    "TSH": r"\b(?:tsh|thyroid stimulating hormone)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+}
+
 
     for name, pattern in patterns.items():
         match = re.search(pattern, report, re.I)
