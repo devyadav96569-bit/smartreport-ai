@@ -160,7 +160,6 @@ with right:
 def analyze_report(report):
     rows = []
 
-  
 patterns = {
     "Hemoglobin": r"\b(?:hemoglobin|haemoglobin|hgb|hb)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
 
@@ -184,7 +183,6 @@ patterns = {
 }
 
 
-   
     for name, pattern in patterns.items():
         match = re.search(pattern, report, re.I)
         if not match:
