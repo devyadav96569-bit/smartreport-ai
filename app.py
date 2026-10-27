@@ -183,7 +183,7 @@ patterns = {
 }
 
 
-    for name, pattern in patterns.items():
+ for name, pattern in patterns.items():
         match = re.search(pattern, report, re.I)
         if not match:
             continue
