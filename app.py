@@ -165,32 +165,32 @@ with right:
     <small>Download a CSV report.</small></div>
     """, unsafe_allow_html=True)
 
+
 def analyze_report(report):
     rows = []
 
-   
-patterns = {
-    "Hemoglobin": r"\b(?:hemoglobin|haemoglobin|hgb|hb)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "WBC": r"\b(?:white blood cell(?:s)?(?:\s+count)?|wbc|total leukocyte count|tlc)\b(?:\s*\(wbc\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "Platelets": r"\b(?:platelets?|platelet count)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "RBC Count": r"\b(?:rbc count|red blood cell count|rbc)\b(?:\s*\([^)]*\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "Hematocrit": r"\b(?:hematocrit|hct)\b(?:\s*\([^)]*\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "MCV": r"\bmcv\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "MCH": r"\bmch\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "Neutrophils": r"\bneutrophils?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "Lymphocytes": r"\blymphocytes?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "Fasting glucose": r"\b(?:fasting blood sugar|fasting glucose|blood glucose|glucose|fbs)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "Creatinine": r"\b(?:serum creatinine|creatinine)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "Total cholesterol": r"\b(?:total cholesterol|cholesterol total)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "HDL": r"\bhdl(?: cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "LDL": r"\bldl(?: cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "Triglycerides": r"\b(?:triglycerides?|tg)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    "TSH": r"\b(?:tsh|thyroid stimulating hormone)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-}
+    patterns = {
+        "Hemoglobin": r"\b(?:hemoglobin|haemoglobin|hgb|hb)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "WBC": r"\b(?:white blood cell(?:s)?(?:\s+count)?|wbc|total leukocyte count|tlc)\b(?:\s*\(wbc\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "Platelets": r"\b(?:platelets?|platelet count)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "RBC Count": r"\b(?:rbc count|red blood cell count|rbc)\b(?:\s*\([^)]*\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "Hematocrit": r"\b(?:hematocrit|hct)\b(?:\s*\([^)]*\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "MCV": r"\bmcv\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "MCH": r"\bmch\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "Neutrophils": r"\bneutrophils?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "Lymphocytes": r"\blymphocytes?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "Fasting glucose": r"\b(?:fasting blood sugar|fasting glucose|blood glucose|glucose|fbs)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "Creatinine": r"\b(?:serum creatinine|creatinine)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "Total cholesterol": r"\b(?:total cholesterol|cholesterol total)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "HDL": r"\bhdl(?: cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "LDL": r"\bldl(?: cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "Triglycerides": r"\b(?:triglycerides?|tg)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+        "TSH": r"\b(?:tsh|thyroid stimulating hormone)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    }
 
-   
-for name, pattern in patterns.items():
+    for name, pattern in patterns.items():
         match = re.search(pattern, report, re.I)
+
         if not match:
             continue
 
@@ -215,7 +215,7 @@ for name, pattern in patterns.items():
 
     return rows
 
-
+  
 if analyze:
     if not text.strip():
         st.error("Please paste a report first.")
