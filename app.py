@@ -16,10 +16,17 @@ st.set_page_config(
     layout="wide"
 )
 
+
 RANGES = {
     "Hemoglobin": ("g/dL", 12, 17.5),
     "WBC": ("10^3/µL", 4, 11),
     "Platelets": ("10^3/µL", 150, 450),
+    "RBC Count": ("10^6/µL", 4.0, 5.2),
+    "Hematocrit": ("%", 36, 46),
+    "MCV": ("fL", 80, 100),
+    "MCH": ("pg", 27, 33),
+    "Neutrophils": ("%", 40, 70),
+    "Lymphocytes": ("%", 20, 40),
     "Fasting glucose": ("mg/dL", 70, 99),
     "Creatinine": ("mg/dL", 0.6, 1.3),
     "Total cholesterol": ("mg/dL", 0, 200),
@@ -27,6 +34,7 @@ RANGES = {
     "LDL": ("mg/dL", 0, 100),
     "Triglycerides": ("mg/dL", 0, 149),
     "TSH": ("mIU/L", 0.4, 4),
+
 }
 
 SAMPLE = """Fictional sample report
@@ -160,18 +168,25 @@ with right:
 def analyze_report(report):
     rows = []
 
-    patterns = {
-        "Hemoglobin": r"\b(?:hemoglobin|haemoglobin|hgb|hb)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "WBC": r"\b(?:white blood cells?|wbc|total leukocyte count|tlc)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Platelets": r"\b(?:platelets?|platelet count)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Fasting glucose": r"\b(?:fasting blood sugar|fasting glucose|blood glucose|glucose|fbs)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Creatinine": r"\b(?:serum creatinine|creatinine)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Total cholesterol": r"\b(?:total cholesterol|cholesterol total)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "HDL": r"\bhdl(?: cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "LDL": r"\bldl(?: cholesterol)?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "Triglycerides": r"\b(?:triglycerides?|tg)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-        "TSH": r"\b(?:tsh|thyroid stimulating hormone)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
-    }
+   
+patterns = {
+    "Hemoglobin": r"\b(?:hemoglobin|haemoglobin|hgb|hb)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "WBC": r"\b(?:white blood cell(?:s)?(?:\s+count)?|wbc|total leukocyte count|tlc)\b(?:\s*\(wbc\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "Platelets": r"\b(?:platelets?|platelet count)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "RBC Count": r"\b(?:rbc count|red blood cell count|rbc)\b(?:\s*\([^)]*\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "Hematocrit": r"\b(?:hematocrit|hct)\b(?:\s*\([^)]*\))?\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "MCV": r"\bmcv\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "MCH": r"\bmch\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "Neutrophils": r"\bneutrophils?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "Lymphocytes": r"\blymphocytes?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "Fasting glucose": r"\b(?:fasting blood sugar|fasting glucose|blood glucose|glucose|fbs)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "Creatinine": r"\b(?:serum creatinine|creatinine)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "Total cholesterol": r"\b(?:total cholesterol|cholesterol total)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "HDL": r"\bhdl(?: cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "LDL": r"\bldl(?: cholesterol)?\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "Triglycerides": r"\b(?:triglycerides?|tg)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+    "TSH": r"\b(?:tsh|thyroid stimulating hormone)\b\s*[:=-]?\s*(\d+(?:\.\d+)?)",
+}
 
     for name, pattern in patterns.items():
         match = re.search(pattern, report, re.I)
